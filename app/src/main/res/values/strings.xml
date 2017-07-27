@@ -6,4 +6,7 @@
     <string name="create">create操作符</string>
     <string name="check_login">检查登录</string>
     <string name="main_activity">主界面</string>
+    <string name="second">第二个界面</string>
+    <string name="wangliang">汪亮</string>
+    <string name="email">guawazicoder@gmail.com</string>
 </resources>
