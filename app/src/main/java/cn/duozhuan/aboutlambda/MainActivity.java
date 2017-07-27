@@ -1,66 +1,64 @@
 package cn.duozhuan.aboutlambda;
 
-import android.support.v7.app.AppCompatActivity;
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import rx.Observable;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    private transient Button btn_1;
+    private Toolbar toolbar;
+    private DrawerLayout drawerLayout;
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        setSupportActionBar(toolbar);
 
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_1:
-                Observable.just("hello,world")
-                        .map(s -> s + "  wangliang")
-                        .subscribe(s -> Log.i(TAG, s));
-                break;
-            case R.id.btn_2:
-                query("hello world") // 查询出集合
-                        .flatMap(Observable::from) // 将查询出来的list 发射成一个个的string
-                        .debounce(100, TimeUnit.MILLISECONDS)  // 可以利用 debounce 做 search 用简单的话讲就是当N个结点发生的时间太靠近（即发生的时间差小于设定的值T），debounce就会自动过滤掉前N-1个结点。
-                        .map(this::getTitle) // 根据查询的值取得标题
-                        .filter(title -> title != null) // 过滤掉标题为null 的
-                        .take(3)  // 只取三个
-                        .doOnNext(this::saveTitle)  // 先保存一下
-                        .subscribe(s -> Log.i(TAG, s)); // 打印
-                break;
-
+        // 注意这里不是 getActionBar
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null){
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.category);
         }
     }
 
-    public Observable<List<String>> query(String key) {
-        List<String> stringList = new ArrayList<>();
-        stringList.add("1");
-        stringList.add("2");
-        stringList.add("3");
-        stringList.add("4");
-        stringList.add("5");
-        return Observable.just(stringList);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar, menu);
+        return true;
     }
 
-    public String getTitle(String url) {
-        return "这是标题";
-    }
-
-    public String saveTitle(String title) {
-        Log.i(TAG, "保存" + title);
-        return title;
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // 这里是 android.R. 不是 R.
+            case android.R.id.home:
+                drawerLayout.openDrawer(GravityCompat.START);
+                break;
+            case R.id.menu_cart:
+                Toast.makeText(this, "menu_cart", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menu_delete:
+                Toast.makeText(this, "menu_delete", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menu_category:
+//                Toast.makeText(this, "menu_category", Toast.LENGTH_SHORT).show();
+                SencondActivity.actionActivity(this);
+                break;
+        }
+        return true;
     }
 }

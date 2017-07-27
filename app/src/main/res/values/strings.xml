@@ -3,4 +3,7 @@
     <string name="btn_click">我被点击了</string>
     <string name="map">map操作符</string>
     <string name="flatmap">flatmap操作符</string>
+    <string name="create">create操作符</string>
+    <string name="check_login">检查登录</string>
+    <string name="main_activity">主界面</string>
 </resources>

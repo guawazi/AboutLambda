@@ -2,7 +2,7 @@
 
 1. 在根build.gradle 中
 
-		dependencies {
+    	dependencies {
 	        classpath 'com.android.tools.build:gradle:2.3.2'
 	        classpath 'me.tatarka:gradle-retrolambda:3.2.0'
    		 }
@@ -24,5 +24,7 @@
 
 		 btn_1 = (Button) findViewById(R.id.btn_1);
 		 btn_1.setOnClickListener(v -> Toast.makeText(this, "我被点击了", Toast.LENGTH_SHORT).show());
+
+
 
 
