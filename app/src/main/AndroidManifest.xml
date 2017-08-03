@@ -3,6 +3,7 @@
     package="cn.duozhuan.aboutlambda">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -23,6 +24,7 @@
         <activity
             android:name=".SencondActivity"
             android:label="@string/second" />
+        <activity android:name=".DetailActivity" android:theme="@style/transStyle"></activity>
     </application>
 
 </manifest>
