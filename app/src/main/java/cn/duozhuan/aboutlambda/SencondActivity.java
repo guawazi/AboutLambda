@@ -101,6 +101,9 @@ public class SencondActivity extends AppCompatActivity implements NavigationView
             }
         };
         recycler.setAdapter(adapter);
+        adapter.addOnItemClickListener((View view, int position) -> {
+            DetailActivity.actionActivity(SencondActivity.this);
+        });
     }
 
     public static void actionActivity(Context context) {
