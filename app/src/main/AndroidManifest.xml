@@ -24,7 +24,10 @@
         <activity
             android:name=".SencondActivity"
             android:label="@string/second" />
-        <activity android:name=".DetailActivity" android:theme="@style/transStyle"></activity>
+        <activity
+            android:name=".DetailActivity"
+            android:theme="@style/transStyle" />
+        <activity android:name=".DemoActivity" android:theme="@style/transStyle"/>
     </application>
 
 </manifest>

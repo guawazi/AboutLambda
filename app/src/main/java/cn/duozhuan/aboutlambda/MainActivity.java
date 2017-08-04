@@ -8,7 +8,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.SpannableString;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -30,14 +29,13 @@ public class MainActivity extends AppCompatActivity {
 
         // 注意这里不是 getActionBar
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null){
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.category);
         }
 
-        SpannableString spannableString = new SpannableString("1000.00元");
-
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
