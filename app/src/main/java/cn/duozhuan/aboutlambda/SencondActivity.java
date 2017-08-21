@@ -1,13 +1,16 @@
 package cn.duozhuan.aboutlambda;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -19,6 +22,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,16 +126,17 @@ public class SencondActivity extends AppCompatActivity implements NavigationView
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item_a:
-
+                Intent intent = new Intent("com.github");
+                sendOrderedBroadcast(intent, null);
                 break;
             case R.id.item_b:
-
+                LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(SencondActivity.this);
                 break;
             case R.id.item_c:
 
                 break;
             case R.id.item_d:
-
+                recycler.getLayoutManager().scrollToPosition(0);
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -143,4 +154,71 @@ public class SencondActivity extends AppCompatActivity implements NavigationView
                 break;
         }
     }
+
+    public class MyBroadCast extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // 截断广播
+            abortBroadcast();
+        }
+    }
+
+    public void save() {
+        String data = "save data";
+        FileOutputStream outputStream = null;
+        BufferedWriter writer = null;
+        try {
+            outputStream = openFileOutput("data", Context.MODE_APPEND);
+            writer = new BufferedWriter(new OutputStreamWriter(outputStream));
+            writer.write(data);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (writer != null) {
+                    writer.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public String loadData() {
+        FileInputStream inputStream = null;
+        StringBuilder builder = new StringBuilder();
+        BufferedReader reader = null;
+        try {
+            inputStream = openFileInput("data");
+            reader = new BufferedReader(new InputStreamReader(inputStream));
+            String lines = "";
+            if ((lines = reader.readLine()) != null) {
+                builder.append(lines);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return builder.toString();
+    }
+
+
+    public void getSharePreferences(){
+        SharedPreferences sp = getSharedPreferences("sp", MODE_PRIVATE);
+//        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(SencondActivity.this);
+
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("key","value");
+        editor.apply();
+        String key = sp.getString("key","default");
+    }
+
 }

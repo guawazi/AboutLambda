@@ -27,7 +27,16 @@
         <activity
             android:name=".DetailActivity"
             android:theme="@style/transStyle" />
-        <activity android:name=".DemoActivity" android:theme="@style/transStyle"/>
+        <activity
+            android:name=".DemoActivity"
+            android:theme="@style/transStyle" />
+        <activity android:name=".SaveDataActivity" />
+
+        <receiver android:name=".SencondActivity$MyBroadCast">
+            <intent-filter android:priority="100">
+                <action android:name="com.github" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
