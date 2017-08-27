@@ -25,6 +25,6 @@
 		 btn_1 = (Button) findViewById(R.id.btn_1);
 		 btn_1.setOnClickListener(v -> Toast.makeText(this, "我被点击了", Toast.LENGTH_SHORT).show());
 
-
+4. 我就试试
 
 
